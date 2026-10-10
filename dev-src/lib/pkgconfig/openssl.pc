@@ -1,0 +1,9 @@
+prefix=/apex/org.blisslabs.ag.boringssl
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}.dev/include
+
+Name: OpenSSL
+Description: OpenSSL compatibility layer
+Version: 14.0.0.r67
+Requires: libssl libcrypto
