@@ -1,0 +1,11 @@
+prefix=/apex/org.blisslabs.ag.boringssl
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}.dev/include
+
+Name: BoringSSL-libssl
+Description: BoringSSL SSL/TLS library
+Version: 14.0.0.r67
+Requires: libcrypto
+Libs: -L${libdir} -L${prefix}.dev/lib -L${prefix}.dev/lib -lssl
+Cflags: -I${includedir}
