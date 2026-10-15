@@ -5,42 +5,106 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+prebuilt_apex {
+    name: "org.blisslabs.ag.boringssl",
+    apex_name: "org.blisslabs.ag.boringssl",
+    source_apex_name: "org.blisslabs.ag.boringssl",
+    arch: {
+        x86_64: {
+            src: "org.blisslabs.ag.boringssl-14000001.apex",
+        },
+    },
+    filename: "org.blisslabs.ag.boringssl-14000001.apex",
+    prefer: true,
+    installable: true,
+}
+
 cc_prebuilt_library_shared {
-    name: "libdummy_boringssl_dev",
+    name: "libcrypto",
     vendor_available: true,
     product_available: true,
     recovery_available: true,
     host_supported: true,
     check_elf_files: false,
-    arch: {
-        x86_64: {
-            srcs: [
-                "dev-src/lib/_libdummy.so",
-            ],
-        },
-    },
+    export_include_dirs: [
+        "dev-src/include",
+    ],
     prefer: true,
     apex_available: [
-        "//apex_available:platform",
         "//apex_available:anyapex",
+        "//apex_available:platform",
     ],
     min_sdk_version: "29",
+    vendor_available: true,
+    product_available: true,
+    srcs: ["src/lib/libcrypto.so"],
 }
 
-cc_library_headers {
-    name: "openssl_headers",
+cc_prebuilt_library_shared {
+    name: "libcrypto_static",
     vendor_available: true,
     product_available: true,
     recovery_available: true,
     host_supported: true,
+    check_elf_files: false,
+    export_include_dirs: [
+        "dev-src/include",
+    ],
+    prefer: true,
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.adservices",
+        "com.android.extservices",
+        "com.android.neuralnetworks",
+    ],
+    min_sdk_version: "29",
+    srcs: ["src/lib/libcrypto.so"],
+}
+
+cc_prebuilt_library_shared {
+    name: "libssl",
+    vendor_available: true,
+    product_available: true,
+    recovery_available: true,
+    host_supported: true,
+    check_elf_files: false,
+    export_include_dirs: [
+        "dev-src/include",
+    ],
+    prefer: true,
     apex_available: [
         "//apex_available:anyapex",
         "//apex_available:platform",
     ],
-    export_include_dirs: [
-        "dev-src/include/openssl",
-    ],
     min_sdk_version: "29",
+    vendor_available: true,
+    product_available: true,
+    recovery_available: true,
+    srcs: ["src/lib/libssl.so"],
 }
 
+cc_prebuilt_library_shared {
+    name: "libssl_static",
+    vendor_available: true,
+    product_available: true,
+    recovery_available: true,
+    host_supported: true,
+    check_elf_files: false,
+    export_include_dirs: [
+        "dev-src/include",
+    ],
+    prefer: true,
+    apex_available: [
+        "//apex_available:anyapex",
+        "//apex_available:platform",
+    ],
+    min_sdk_version: "29",
+    srcs: ["src/lib/libssl.so"],
+}
 
+cc_prebuilt_binary {
+    name: "bssl",
+    check_elf_files: false,
+    prefer: true,
+    srcs: ["src/bin/bssl"],
+}
