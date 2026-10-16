@@ -1,0 +1,22 @@
+{
+	"provideLibs": [	
+		    "libcrypto-x86_64-v2.so",
+		    "libcrypto.so",
+		    "libdummy_binary_bssl-x86_64-v2.so",
+		    "libdummy_binary_bssl.so",
+		    "libdummy_ext_boringssl-x86_64-v2.so",
+		    "libdummy_ext_boringssl.so",
+		    "libdummy_headers_ext_boringssl-x86_64-v2.so",
+		    "libdummy_headers_ext_boringssl.so",
+		    "libdummy_pkgconfig_ext_boringssl-x86_64-v2.so",
+		    "libdummy_pkgconfig_ext_boringssl.so",
+		    "libssl-x86_64-v2.so",
+		    "libssl.so"
+	],
+	"requireLibs": [	
+		    "libc.so",
+		    "libdl.so",
+		    "libm.so"
+	],
+	"visible": true
+}
