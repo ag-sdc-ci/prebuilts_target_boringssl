@@ -63,66 +63,66 @@ cc_prebuilt_library_shared {
         "//apex_available:platform",
     ],
     min_sdk_version: "29",
+    sdk_version: "9",
+    stl: "none",
     srcs: ["src/lib/libcrypto.so"],
 }
 
-cc_prebuilt_library_shared {
+cc_library_static {
     name: "libcrypto_static",
     vendor_available: true,
     product_available: true,
     recovery_available: true,
     host_supported: true,
-    check_elf_files: false,
     export_include_dirs: [
-        "src/include",
+        "dev-src/include",
     ],
-    prefer: true,
     apex_available: [
         "//apex_available:platform",
+        "//apex_available:anyapex",
         "com.android.adservices",
         "com.android.extservices",
         "com.android.neuralnetworks",
     ],
+    sdk_version: "9",
+    stl: "none",
     min_sdk_version: "29",
-    srcs: ["src/lib/libcrypto.so"],
 }
 
-cc_prebuilt_library_shared {
+cc_library {
     name: "libssl",
     vendor_available: true,
     product_available: true,
     recovery_available: true,
     host_supported: true,
-    check_elf_files: false,
     export_include_dirs: [
-        "src/include",
+        "dev-src/include",
     ],
-    prefer: true,
     apex_available: [
         "//apex_available:anyapex",
         "//apex_available:platform",
     ],
+    sdk_version: "9",
+    stl: "none",
     min_sdk_version: "29",
-    srcs: ["src/lib/libssl.so"],
 }
 
-cc_prebuilt_library_shared {
+cc_library_static {
     name: "libssl_static",
     vendor_available: true,
     product_available: true,
     recovery_available: true,
     host_supported: true,
-    check_elf_files: false,
     export_include_dirs: [
-        "src/include",
+        "dev-src/include",
     ],
-    prefer: true,
     apex_available: [
         "//apex_available:anyapex",
         "//apex_available:platform",
     ],
+    sdk_version: "9",
+    stl: "none",
     min_sdk_version: "29",
-    srcs: ["src/lib/libssl.so"],
 }
 
 cc_prebuilt_binary {
@@ -255,6 +255,21 @@ rust_library_host_rlib {
     ],
 }
 
+rust_library_rlib {
+    name: "libbssl_sys_nostd",
+    defaults: ["libbssl_sys_defaults"],
+    prefer_rlib: true,
+    no_stdlibs: true,
+    stdlibs: [
+        "libcompiler_builtins.rust_sysroot",
+        "libcore.rust_sysroot",
+    ],
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.virt",
+    ],
+}
+
 rust_defaults {
     name: "libbssl_crypto_defaults",
     crate_name: "bssl_crypto",
@@ -273,4 +288,25 @@ rust_library {
     visibility: ["//visibility:public"],
     vendor_available: true,
     product_available: true,
+}
+
+cc_library_static {
+    name: "libcrypto_baremetal",
+    host_supported: true,
+    vendor_available: true,
+    export_include_dirs: ["dev-src/include"],
+    visibility: ["//visibility:public"],
+}
+
+cc_binary {
+    name: "boringssl_self_test",
+    vendor_available: true,
+    product_available: true,
+    recovery_available: true,
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.conscrypt",
+        "test_com.android.conscrypt",
+    ],
+    min_sdk_version: "29",
 }
